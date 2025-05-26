@@ -1,61 +1,10 @@
-# version: '3.8'
-# services:
-#   db:
-#     image: postgres:16 # Usando 16 para consistência
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data/
-#     environment:
-#       POSTGRES_DB: lu_estilo_db
-#       POSTGRES_USER: user
-#       POSTGRES_PASSWORD: password
-#     ports:
-#       - "5432:5432"
-#     healthcheck: # ADICIONE ESTA SEÇÃO
-#       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-#       interval: 5s
-#       timeout: 5s
-#       retries: 5
 
-#   api:
-#     build: .
-#     # O comando deve esperar o DB estar saudável
-#     command: bash -c "until pg_isready -h db -p 5432 -U user; do echo 'Waiting for db...'; sleep 2; done; alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
-#     volumes:
-#       - .:/app
-#     ports:
-#       - "8000:8000"
-#     depends_on:
-#       db: # Garante que o serviço 'api' espere até que 'db' esteja saudável
-#         condition: service_healthy
-#     environment:
-#       DATABASE_URL: postgresql://user:password@db:5432/lu_estilo_db
-#       SECRET_KEY: "YOUR_SUPER_SECRET_JWT_KEY" # Substitua por uma chave forte
-#       ACCESS_TOKEN_EXPIRE_MINUTES: 30
-#       WHATSAPP_API_URL: "YOUR_WHATSAPP_API_PROVIDER_URL" # Substitua pela URL real
-#       WHATSAPP_API_TOKEN: "YOUR_WHATSAPP_API_TOKEN" # Substitua pelo token real
 
-#   test_db:
-#     image: postgres:16 # Usando 16 para consistência
-#     environment:
-#       POSTGRES_DB: test_lu_estilo_db
-#       POSTGRES_USER: test_user
-#       POSTGRES_PASSWORD: test_password
-#     ports:
-#       - "5433:5432"
-#     healthcheck: # Adicione healthcheck para test_db também
-#       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-#       interval: 5s
-#       timeout: 5s
-#       retries: 5
-
-# volumes:
-#   postgres_data:
-
-version: '3.8' # Pode remover esta linha se quiser evitar o warning de "obsolete"
+version: '3.8' 
 
 services:
   db:
-    image: postgres:16 # Usando 16 para consistência e recomendação
+    image: postgres:16 
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -64,7 +13,7 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
-    healthcheck: # Adiciona verificação de saúde para o DB principal
+    healthcheck: 
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
@@ -72,31 +21,31 @@ services:
 
   api:
     build: .
-    # O comando espera o DB estar saudável ANTES de rodar Alembic e Uvicorn
+    
     command: bash -c "until pg_isready -h db -p 5432 -U user; do echo 'Waiting for db...'; sleep 2; done; alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
-      db: # Garante que o serviço 'api' espere até que 'db' esteja saudável
+      db: # 
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://user:password@db:5432/lu_estilo_db
-      SECRET_KEY: "YOUR_SUPER_SECRET_JWT_KEY" # Substitua por uma chave forte!
+      SECRET_KEY: "YOUR_SUPER_SECRET_JWT_KEY" 
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
-      WHATSAPP_API_URL: "YOUR_WHATSAPP_API_PROVIDER_URL" # Substitua pela URL real
-      WHATSAPP_API_TOKEN: "YOUR_WHATSAPP_API_TOKEN" # Substitua pelo token real
+      WHATSAPP_API_URL: "YOUR_WHATSAPP_API_PROVIDER_URL" 
+      WHATSAPP_API_TOKEN: "YOUR_WHATSAPP_API_TOKEN" 
 
-  test_db: # Banco de dados opcional para testes
-    image: postgres:16 # Usando 16 para consistência
+  test_db: 
+    image: postgres:16 
     environment:
       POSTGRES_DB: test_lu_estilo_db
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: test_password
     ports:
       - "5433:5432"
-    healthcheck: # Adiciona verificação de saúde para o DB de testes
+    healthcheck: 
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s

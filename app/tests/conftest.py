@@ -8,18 +8,18 @@ from app.database.models import User
 from app.core.security import get_password_hash
 from app.core.config import settings
 
-# Use a separate test database
-SQLALCHEMY_DATABASE_URL = "postgresql://test_user:test_password@localhost:5433/test_lu_estilo_db" # Use a different port or name
-# For Docker setup, ensure this matches your test DB service in docker-compose.yml
+
+SQLALCHEMY_DATABASE_URL = "postgresql://test_user:test_password@localhost:5433/test_lu_estilo_db" 
+
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 @pytest.fixture(scope="session")
 def db_engine():
-    Base.metadata.create_all(bind=engine) # Create tables for tests
+    Base.metadata.create_all(bind=engine) 
     yield engine
-    Base.metadata.drop_all(bind=engine) # Drop tables after tests
+    Base.metadata.drop_all(bind=engine) 
 
 @pytest.fixture(scope="function")
 def db_session(db_engine):
@@ -28,7 +28,7 @@ def db_session(db_engine):
     session = TestingSessionLocal(bind=connection)
     yield session
     session.close()
-    transaction.rollback() # Rollback to ensure a clean state for each test
+    transaction.rollback() 
     connection.close()
 
 @pytest.fixture(scope="function")
