@@ -1,5 +1,8 @@
 # API Backend Lu Estilo
 
+## Deploy
+** https://lu-estilo-api-rqy2.onrender.com/api/v1/docs#/ 
+
 Esta é uma API RESTful desenvolvida com FastAPI para a Lu Estilo, facilitando a comunicação entre o time comercial, os clientes e a empresa.
 
 ## Funcionalidades
@@ -83,7 +86,8 @@ Esta é uma API RESTful desenvolvida com FastAPI para a Lu Estilo, facilitando a
         * Iniciar um contêiner para o banco de dados de TESTE PostgreSQL.
         * Iniciar o contêiner da API.
         * O serviço da API está configurado para esperar o banco de dados principal estar pronto e então executar as migrações do Alembic (`alembic upgrade head`) antes de iniciar o servidor Uvicorn.
-
+        * Se tabelas não for criadas executar `alembic upgrade head` && `alembic revision --autogenerate`
+        * 
 4.  **Acesse a Aplicação e a Documentação:**
     * A API estará rodando em: `http://localhost:8000`
     * Documentação Interativa (Swagger UI): `http://localhost:8000/api/v1/docs`

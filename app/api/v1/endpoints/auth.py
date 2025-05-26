@@ -40,9 +40,7 @@ async def register_user(
     """
     Register a new user. Only admin can register new users.
     """
-    # Example: Only admins can register new users for specific roles or generally
-    # For simplicity, let's allow anyone to register as 'regular' for now.
-    # If `user_in.role` is 'admin', you might want to restrict this further.
+    
 
     if crud_user.user.get_by_username(db, username=user_in.username):
         raise HTTPException(status_code=400, detail="Username already registered")
