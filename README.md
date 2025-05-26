@@ -1,5 +1,8 @@
 # API Backend Lu Estilo
 
+## Deploy
+** https://lu-estilo-api-rqy2.onrender.com/api/v1/docs#/ 
+
 Esta é uma API RESTful desenvolvida com FastAPI para a Lu Estilo, facilitando a comunicação entre o time comercial, os clientes e a empresa.
 
 ## Funcionalidades
