@@ -183,20 +183,3 @@ A lista completa de endpoints, com detalhes sobre os parâmetros, corpos de requ
 * **Swagger UI**: `http://localhost:8000/api/v1/docs`
 * **ReDoc**: `http://localhost:8000/api/v1/redoc`
 
-## Estrutura do Projeto (Principais Pastas)
-lu_estilo_api/
-├── app/                  # Contém todo o código da aplicação FastAPI
-│   ├── api/              # Endpoints e roteadores da API
-│   ├── core/             # Configurações centrais, segurança
-│   ├── crud/             # Funções CRUD (Create, Read, Update, Delete)
-│   ├── database/         # Modelos SQLAlchemy, sessão do DB, Alembic
-│   ├── schemas/          # Schemas Pydantic (validação de dados)
-│   ├── services/         # Lógica de serviços (ex: WhatsApp)
-│   └── main.py           # Ponto de entrada da aplicação FastAPI
-├── tests/                # Testes automatizados (Pytest)
-├── .env.example          # Exemplo de arquivo de variáveis de ambiente
-├── Dockerfile            # Instruções para construir a imagem Docker da API
-├── docker-compose.yml    # Define os serviços Docker (api, db, test_db)
-├── requirements.txt      # Dependências Python
-├── alembic.ini           # Configuração do Alembic
-└── README.md             # Este arquivo
